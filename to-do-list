@@ -1,0 +1,62 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <limits> // for clear input buffer
+using namespace std;
+
+// Function to display the menu
+void displayMenu() {
+    cout << "\n===== To-Do List =====" << endl;
+    cout << "1. Add item" << endl;
+    cout << "2. Display items" << endl;
+    cout << "3. Quit" << endl;
+    cout << "=======================" << endl;
+}
+
+// Function to clear input buffer
+void clearInputBuffer() {
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+}
+
+int main() {
+    vector<string> todoList;
+    int choice;
+    string item;
+
+    do {
+        displayMenu();
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                cout << "Enter item to add: ";
+                clearInputBuffer(); // Clear input buffer before getting string with spaces
+                getline(cin, item);
+                todoList.push_back(item);
+                cout << "Item added successfully." << endl;
+                break;
+            case 2:
+                if (todoList.empty()) {
+                    cout << "The to-do list is empty." << endl;
+                } else {
+                    cout << "\n===== To-Do List =====" << endl;
+                    for (size_t i = 0; i < todoList.size(); ++i) {
+                        cout << i + 1 << ". " << todoList[i] << endl;
+                    }
+                    cout << "=======================" << endl;
+                }
+                break;
+            case 3:
+                cout << "Exiting program...";
+                break;
+            default:
+                cout << "Invalid choice. Please try again." << endl;
+                clearInputBuffer(); // Clear input buffer in case of invalid input
+        }
+
+    } while (choice != 3);
+
+    return 0;
+}
